@@ -20,8 +20,8 @@
           </ion-buttons>
         </ion-label>
         <ion-input class="wa-input"
-                    placeholder="89123"
-                    type="number"
+                    placeholder="ZIP Code (e.g. 89123) or Place Name"
+                    type="string"
                     [(ngModel)]="zipcode">
         </ion-input>
         <ion-buttons class="wa-nav__button" slot="end">
@@ -47,7 +47,7 @@
       </div>
       <ion-row class="wa-temp__container-footer">
         <ion-col col-6>
-          {{ percip }}%
+          {{ precip }}%
         </ion-col>
         <ion-col col-6>
           {{ wind }}mph

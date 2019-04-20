@@ -15,7 +15,7 @@ export class HomePage implements OnInit {
   location: String;
   minTemp: Number;
   maxTemp: Number;
-  percip: Number;
+  precip: Number;
   wind: Number;
   weatherResults: Object;
   forecast: any[];
@@ -26,12 +26,13 @@ export class HomePage implements OnInit {
   }
 
   getWeather(zipcode) {
+    console.log(zipcode);
     this.weather.getWeather(zipcode)
     .subscribe((resp: any) => {
       this.weatherResults = resp;
       this.currentWeather = resp.current.temp_f;
       this.location = resp.location.name;
-      this.percip = resp.current.precip_in;
+      this.precip = resp.current.precip_in;
       this.wind = resp.current.wind_mph;
 
       _.each(resp.forecast, (data) => {
