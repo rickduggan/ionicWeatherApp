@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { WeatherService } from '../weather.service';
 
 import * as _ from 'lodash';
+import { NavigationStart } from '@angular/router';
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -10,9 +12,8 @@ import * as _ from 'lodash';
 export class HomePage implements OnInit {
 
   currentWeather;
-  zipcode: String;
-  searching: Boolean = false;
   location: String;
+  searching: Boolean = false;
   minTemp: Number;
   maxTemp: Number;
   precip: Number;
@@ -23,11 +24,15 @@ export class HomePage implements OnInit {
   constructor(private weather: WeatherService) {}
 
   ngOnInit() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(currentPosition => {
+        this.getWeather(currentPosition.coords.latitude + ',' + currentPosition.coords.longitude);
+      });
+    }
   }
 
-  getWeather(zipcode) {
-    console.log(zipcode);
-    this.weather.getWeather(zipcode)
+  getWeather(location) {
+    this.weather.getWeather(location)
     .subscribe((resp: any) => {
       this.weatherResults = resp;
       this.currentWeather = resp.current.temp_f;
@@ -47,6 +52,6 @@ export class HomePage implements OnInit {
 
   toggleSearch() {
     this.searching = !this.searching;
-    this.zipcode = '';
+    this.location = '';
   }
 }

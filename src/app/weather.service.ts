@@ -9,9 +9,8 @@ export class WeatherService {
 
   constructor(private http: HttpClient) { }
 
-  getWeather(zipcode) {
-    let zipLocation = 'http://api.apixu.com/v1/forecast.json?key=8ca3550e6ec5459d8ac224045170711&q=' + zipcode + '&days=1';
-
-    return this.http.get(zipLocation);
+  getWeather(location) {
+    let weatherURL = 'http://api.apixu.com/v1/forecast.json?key=8ca3550e6ec5459d8ac224045170711&q=' + location + '&days=1';
+    return this.http.get(weatherURL);
   }
 }
